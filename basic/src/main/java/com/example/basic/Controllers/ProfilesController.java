@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.io.Serializable;
 import java.util.concurrent.CompletableFuture;
 
-public interface UsersController <E extends Base, ID extends Serializable> {
+public interface ProfilesController <E extends Base, ID extends Serializable> {
     public CompletableFuture<ResponseEntity> save(@RequestBody E entity) throws Exception;
     public CompletableFuture<ResponseEntity> update(@PathVariable ID id, @RequestBody E entity) throws Exception;
     public CompletableFuture<ResponseEntity> delete(@PathVariable ID id) throws Exception;

@@ -1,9 +1,15 @@
 package com.example.basic.Services;
 
 import com.example.basic.Entities.Users;
+import com.example.basic.Repositories.BaseRepository;
 
-public interface UsersServiceImpl extends BaseService <Users,Long> {
+import org.springframework.stereotype.Service;
 
+@Service
+public class UsersServiceImpl extends BaseServiceImpl<Users, Long> implements UsersService {
 
+    public UsersServiceImpl(BaseRepository<Users, Long> baseRepository) {
+        super(baseRepository);
+    }
 
 }
