@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Table(name = "tbl_users")
-public class Users {
+public class Users extends Base {
 	@Column(name = "iduser ")
 	private int iduser;
 	@Column(name = "username")
