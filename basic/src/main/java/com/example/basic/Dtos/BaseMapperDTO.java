@@ -1,5 +1,6 @@
 package com.example.basic.Dtos;
 
+import com.example.basic.Entities.Users;
 import org.modelmapper.ModelMapper;
 
 public class BaseMapperDTO {
@@ -15,9 +16,9 @@ public class BaseMapperDTO {
         }
         return baseMapperDTO;
             }
-/*
-    public AppoimentDto mapToAppoimentDto(Appoiment appoiment){
-        return modelMapper.map(appoiment,AppoimentDto.class);
+
+    public UserDTO mapToAppoimentDto(Users users){
+        return modelMapper.map(users,UserDTO.class);
     }
-*/
+
 }
