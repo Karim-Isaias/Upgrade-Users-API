@@ -1,10 +1,9 @@
 package com.example.basic.Entities;
 
-import javax.persistence.*;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hibernate.envers.Audited;
+
+import javax.persistence.*;
 
 @Entity
 @Data

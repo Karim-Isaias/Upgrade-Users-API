@@ -1,11 +1,11 @@
 package com.example.basic.Entities;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.hibernate.envers.Audited;
 
 @Entity
 @Data

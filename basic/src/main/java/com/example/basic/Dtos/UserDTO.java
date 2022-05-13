@@ -1,7 +1,7 @@
 package com.example.basic.Dtos;
 
 import com.example.basic.Entities.Base;
-import lombok.*;
+import lombok.Data;
 
 import javax.persistence.Column;
 import java.io.Serializable;
