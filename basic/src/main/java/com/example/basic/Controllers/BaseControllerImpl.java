@@ -15,7 +15,7 @@ public abstract class BaseControllerImpl<E extends Base, S extends BaseServiceIm
 
     @GetMapping("")
     public CompletableFuture<ResponseEntity> getAll() {
-        return servicio.pruebaGetall().thenApply(ResponseEntity::ok);
+        return servicio.Getall().thenApply(ResponseEntity::ok);
     }
 
     @GetMapping("/{id}")

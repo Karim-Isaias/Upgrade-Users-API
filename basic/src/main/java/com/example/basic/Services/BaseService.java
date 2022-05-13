@@ -21,6 +21,6 @@ public interface BaseService<E extends Base, ID extends Serializable> {
 
     //public boolean delete(ID id) throws Exception;
     public CompletableFuture<Boolean> delete(ID id) throws Exception;
-    CompletableFuture<List<E>> pruebaGetall() throws Exception;
+    CompletableFuture<List<E>> Getall() throws Exception;
     public CompletableFuture<Optional<E>> findByIdAsync(ID id) throws Exception;
 }

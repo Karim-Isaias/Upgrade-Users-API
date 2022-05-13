@@ -44,7 +44,7 @@ public abstract class BaseServiceImpl<E extends Base, ID extends Serializable> i
 
     @Override
     @Transactional
-    public CompletableFuture<List<E>> pruebaGetall() {
+    public CompletableFuture<List<E>> Getall() {
 
         return CompletableFuture.completedFuture(baseRepository.findAll());
     }

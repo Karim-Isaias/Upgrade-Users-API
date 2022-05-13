@@ -1,7 +1,9 @@
 package com.example.basic.Entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -9,7 +11,8 @@ import javax.persistence.*;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Table(name = "tbl_users")
-
+@NoArgsConstructor
+@AllArgsConstructor
 public class Users extends Base {
 	/*
 	@Column(name = "iduser ")
@@ -20,14 +23,12 @@ public class Users extends Base {
 	@Column(name = "password")
 	private int password;
 
-
 	@Column(name = "idprofile")
 	private String idprofile;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fk_profile")
 	private Profile profile;
-
 
 	@Column(name = "idemployee")
 
