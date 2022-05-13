@@ -1,29 +1,38 @@
 package com.example.basic;
 
+import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.asyncDispatch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-import org.eclipse.sisu.Description;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.example.basic.Controllers.ProfilesController;
 import com.example.basic.Controllers.ProfilesControllerImpl;
-import com.example.basic.Controllers.UsersController;
 import com.example.basic.Controllers.UsersControllerImpl;
 import com.example.basic.Entities.Profile;
 import com.example.basic.Entities.Users;
@@ -33,39 +42,7 @@ import com.example.basic.Services.UsersServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import org.junit.jupiter.api.TestInstance.Lifecycle;
-import org.mockito.junit.jupiter.MockitoExtension;
-import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.test.web.servlet.ResultMatcher;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
 @SpringBootTest
-@SuppressWarnings("rawtypes")
 @ExtendWith(MockitoExtension.class)
 @TestInstance(Lifecycle.PER_CLASS)
 class BasicApplicationTests {
@@ -144,4 +121,90 @@ class BasicApplicationTests {
 
     }
 
+    @Test
+    public void getUserTest() throws Exception {
+        //given
+        given(usrSrv.findByIdAsync(Mockito.anyLong()))
+                .willReturn(
+                        CompletableFuture.<Optional<Users>>completedFuture(Optional.ofNullable(user_1))
+                );
+        //when
+
+        ObjectMapper mapr = new ObjectMapper();
+
+        String body = mapr.writeValueAsString(user_1);
+
+        String expected = "";
+        MvcResult response =
+                this.mockMvc.perform(get("http://localhost:9090/api/v1/users/1").accept(MediaType.APPLICATION_JSON) )
+                        .andExpect(request().asyncStarted())
+                        .andExpect(status().is2xxSuccessful())
+                        .andReturn();
+
+        this.mockMvc.perform(asyncDispatch(response))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(body))
+        ;
 }
+    
+    @Test
+    public void saveUserTest() throws Exception {
+        //given
+        given(usrSrv.save(Mockito.any()))
+                .willReturn(
+                        CompletableFuture.completedFuture(user_1)
+                );
+        //when
+
+        ObjectMapper mapr = new ObjectMapper();
+
+        String body = mapr.writeValueAsString(user_1);
+
+        String expected = "";
+        MvcResult response =
+                this.mockMvc.perform(
+                                post("http://localhost:9090/api/v1/users/")
+                                        .accept(MediaType.APPLICATION_JSON)
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .content(body)
+                        )
+
+                        .andExpect(request().asyncStarted())
+                        .andExpect(status().is2xxSuccessful())
+                        .andReturn();
+
+        this.mockMvc.perform(asyncDispatch(response))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(body,false ))
+        ;
+
+
+    }
+    
+    @Test
+    public void delUserTest() throws Exception {
+
+
+        given(usrSrv.delete(Mockito.anyLong()))
+                .willReturn(
+                        CompletableFuture.completedFuture(true)
+                );
+        //when
+
+        String expected = "";
+        this.mockMvc.perform(delete("http://localhost:9090/api/v1/users/1") )
+                .andDo(print())
+                .andExpect(content().string(expected))
+                .andExpect(status().is2xxSuccessful())
+        ;
+        //then
+
+        }
+
+}
+
+
