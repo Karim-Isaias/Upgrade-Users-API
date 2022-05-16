@@ -20,4 +20,4 @@ spring:
         - id: profile-service
           uri: lb://profile-service
           predicates:
-            - Path=/api/v1/**/**
+            - Path=/api/v1/**
