@@ -13,8 +13,8 @@ CREATE TABLE tbl_users (
     idprofile varchar(255)  not null,
     idemployee int  not null,
     status varchar(255)  not null,
-    createddate DATETIME  not null,
-    updatedate DATETIME  not null,
+    createddate DATE not null,
+    updatedate DATE not null,
     login varchar(255)  not null,
  	PRIMARY KEY (iduser),
     FOREIGN KEY (idemployee) REFERENCES tbl_profiles(profile)
