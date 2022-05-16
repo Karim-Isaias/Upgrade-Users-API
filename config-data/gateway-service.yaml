@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8090
 
 eureka:
   client:
@@ -20,4 +20,4 @@ spring:
         - id: profile-service
           uri: lb://profile-service
           predicates:
-            - Path=/profile/**
+            - Path=/api/v1/**
