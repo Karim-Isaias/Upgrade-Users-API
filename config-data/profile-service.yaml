@@ -11,6 +11,8 @@ eureka:
       
 
 spring:
+  application:
+    zipkin: http://localhost:9411
   datasource:
     url: jdbc:mysql://localhost:13306/users_db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     password: secret
