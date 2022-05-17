@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="basic/src/main/java"/>
+	<classpathentry kind="src" path="basic/src/test/java"/>
+	<classpathentry kind="src" path="config-service/src/main/java"/>
+	<classpathentry kind="src" path="config-service/src/test/java"/>
+	<classpathentry kind="src" path="eureka-service/src/main/java"/>
+	<classpathentry kind="src" path="eureka-service/src/test/java"/>
+	<classpathentry excluding="com/example/gatewayservice/controller/" kind="src" path="gateway-service/src/main/java"/>
+	<classpathentry kind="src" path="gateway-service/src/main/java/com/example/gatewayservice/controller"/>
+	<classpathentry kind="src" path="gateway-service/src/test/java"/>
+	<classpathentry kind="lib" path="config-service/target/config.server-0.0.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="eureka-service/.mvn/wrapper/maven-wrapper.jar"/>
+	<classpathentry kind="output" path="basic/target/classes"/>
+</classpath>
