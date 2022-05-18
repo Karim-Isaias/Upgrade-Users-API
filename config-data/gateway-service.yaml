@@ -24,7 +24,7 @@ spring:
           predicates:
             - Path=/api/v1/**
         - id: swagger-ui
-          uri: ${swagger-ui_url}
+          uri: lb://swagger-ui_url
           predicates:
             - Path=/swagger-ui/**,/swagger-resources/**,/swagger-ui.html,/v2/api-docs,/webjars/**,/view/**
           filters:
