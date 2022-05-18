@@ -23,10 +23,6 @@ spring:
           uri: lb://profile-service
           predicates:
             - Path=/api/v1/**
-        - id: swagger-ui
-          uri: lb://swagger-ui_url
-          predicates:
-            - Path=/swagger-ui/**,/swagger-resources/**,/swagger-ui.html,/v2/api-docs,/webjars/**,/view/**
           filters:
             - RemoveRequestHeader=Cookie
 
