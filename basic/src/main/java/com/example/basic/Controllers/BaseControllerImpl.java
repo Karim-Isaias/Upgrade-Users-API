@@ -18,31 +18,31 @@ public abstract class BaseControllerImpl<E extends Base, S extends BaseServiceIm
     @Autowired
     protected S servicio;
 
-    @CircuitBreaker(name = "getAllCB", fallbackMethod = "fallbackgetAllCB")
+   // @CircuitBreaker(name = "getAllCB", fallbackMethod = "fallbackgetAllCB")
     @GetMapping("")
     public CompletableFuture<ResponseEntity> getAll() {
         return servicio.Getall().thenApply(ResponseEntity::ok);
     }
 
-    @CircuitBreaker(name = "getOneCB", fallbackMethod = "fallbackgetOneCB")
+   // @CircuitBreaker(name = "getOneCB", fallbackMethod = "fallbackgetOneCB")
     @GetMapping("/{id}")
     public CompletableFuture<ResponseEntity> getOneAsync(@PathVariable Long id) throws Exception {
         return servicio.findByIdAsync(id).thenApply(ResponseEntity::ok);
     }
     
-    @CircuitBreaker(name = "saveCB", fallbackMethod = "fallbacksaveCB")
+  //  @CircuitBreaker(name = "saveCB", fallbackMethod = "fallbacksaveCB")
     @PostMapping("")
     public CompletableFuture<ResponseEntity> save(@RequestBody E entity) throws Exception {
         return servicio.save(entity).thenApply(ResponseEntity::ok);
     }
     
-    @CircuitBreaker(name = "updateCB", fallbackMethod = "fallbackupdateCB")
+  //  @CircuitBreaker(name = "updateCB", fallbackMethod = "fallbackupdateCB")
     @PutMapping("/{id}")
     public CompletableFuture<ResponseEntity> update(@PathVariable Long id, @RequestBody E entity) throws Exception {
         return servicio.update(id, entity).thenApply(ResponseEntity::ok);
     }
 
-    @CircuitBreaker(name = "deleteCB", fallbackMethod = "fallbackdeleteCB")
+  //  @CircuitBreaker(name = "deleteCB", fallbackMethod = "fallbackdeleteCB")
     @DeleteMapping("/{id}")
     public CompletableFuture<ResponseEntity> delete(@PathVariable Long id) throws Exception {
             return servicio.delete(id).thenApply(ResponseEntity::ok);
@@ -52,7 +52,7 @@ public abstract class BaseControllerImpl<E extends Base, S extends BaseServiceIm
     private ResponseEntity fallbackgetAllCB(RuntimeException e) {
         return new ResponseEntity("getAll no disponible", HttpStatus.OK);
     }
-    
+    /*
     private ResponseEntity fallbackgetOneCB(@PathVariable Long id, RuntimeException e) {
         return new ResponseEntity("getOne no disponible", HttpStatus.OK);
     }
@@ -67,5 +67,5 @@ public abstract class BaseControllerImpl<E extends Base, S extends BaseServiceIm
     
     private ResponseEntity fallbackdeleteCB(@PathVariable Long id, RuntimeException e) {
         return new ResponseEntity("delete no disponible", HttpStatus.OK);
-    }
+    }*/
 }
