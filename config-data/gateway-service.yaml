@@ -39,6 +39,6 @@ spring:
           client:
             provider: keycloak
             client-id: client
-            client-secret: F65wlh4n6a2EJzSIlJeoyk3OkYcYHDxs
+            client-secret: oGM6YLEUFz3zUgLtKtfEgioqPSuQ37SI
             authorization-grant-type: authorization_code
             redirect-uri: "{baseUrl}/login/oauth2/code/client"
