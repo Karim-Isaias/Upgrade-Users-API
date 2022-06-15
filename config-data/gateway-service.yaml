@@ -11,6 +11,8 @@ eureka:
     hostname: localhost
 
 spring:
+  main:
+    web-application-type: reactive
   cloud:
     gateway:
       default-filters:
