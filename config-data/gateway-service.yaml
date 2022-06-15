@@ -28,9 +28,19 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
 
-keycloak:
-  realm: client
-  auth-server-url: http://localhost:9090
-  resource: client
-  public-client: true
-  bearer-only: true
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            authorization-uri: http://localhost:9090/realms/client/protocol/openid-connect/auth
+            userinfo-uri: http://localhost:9090/realms/client/protocol/openid-connect/userinfo
+            user-name-attribute: preferred_username
+            token-uri: http://localhost:9090/realms/client/protocol/openid-connect/token
+        registration:
+          client:
+            provider: keycloak
+            client-id: client
+            client-secret: NYvwErmUhJYj0uhQXeUotk3OtprBbtk8
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/client"
