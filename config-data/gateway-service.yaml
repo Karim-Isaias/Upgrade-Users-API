@@ -41,4 +41,4 @@ spring:
             client-id: client
             client-secret: hazvY1A8o0slGyjYFOdQYwEW1zG9JAm5
             authorization-grant-type: authorization_code
-            redirect-uri: "http://localhost:8090/login/oauth2/code/client"
+            redirect-uri: "{baseUrl}/login/oauth2/code/client"
