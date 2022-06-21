@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -51,7 +52,13 @@ public class UsersServiceImpl extends BaseServiceImpl<Users, Long> implements Us
         System.out.println("Current Thread" + Thread.currentThread().getName());
         LOGGER.info("Request to Get OneDto");
         ModelMapper modelMapper = new ModelMapper();
-        UserDTO userDTO = modelMapper.map(usersRepository.findById(id),UserDTO.class);
+        
+        Users user = usersRepository.findById(id).get();
+        UserDTO userDTO = modelMapper.map(user,UserDTO.class);
+        System.out.println(id);
+        System.out.println(usersRepository.findById(id));
+        System.out.println(user);
+        System.out.println(userDTO);
         return CompletableFuture.completedFuture(userDTO);
     }
 }

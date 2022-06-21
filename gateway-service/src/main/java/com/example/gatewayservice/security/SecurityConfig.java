@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .oauth2Login()
                 .and()
                 .oauth2Client();
-
+        http.csrf().disable();
         return http.build();
     }
 }
